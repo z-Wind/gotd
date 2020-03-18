@@ -4,9 +4,15 @@
 
 ## Table of Contents
 
+* [Apply](#apply)
 * [Installation](#installation)
 * [Examples](#examples)
 * [Reference](#reference)
+
+## Apply
+- Go to [TD Ameritrade API](https://developer.tdameritrade.com/apis)
+- Follow this site  [[TD] API 申請流程](https://zwindr.blogspot.com/2018/10/td-api.html)
+- Modify ***client_secret.json.sample*** and pass it to auth.GetClient
 
 ## Installation
 
