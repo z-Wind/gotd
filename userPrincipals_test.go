@@ -5,73 +5,73 @@ import (
 	"testing"
 )
 
-func Test_UserPrincipalGetPreferencesCall_Do(t *testing.T) {
+func Test_UserPrincipalsGetPreferencesCall_Do(t *testing.T) {
 	tests := []struct {
 		name    string
-		c       *UserPrincipalGetPreferencesCall
+		c       *UserPrincipalsGetPreferencesCall
 		want    *Preferences
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Test", NewUserPrincipalService(td).GetPreferences(accountID), nil, false},
+		{"Test", NewUserPrincipalsService(td).GetPreferences(accountID), nil, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := tt.c.Do()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("UserPrincipalGetPreferencesCall.Do() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("UserPrincipalsGetPreferencesCall.Do() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("UserPrincipalGetPreferencesCall.Do() = %v, want %v", got, tt.want)
+				t.Errorf("UserPrincipalsGetPreferencesCall.Do() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_UserPrincipalGetStreamerSubscriptionKeysCall_Do(t *testing.T) {
+func Test_UserPrincipalsGetStreamerSubscriptionKeysCall_Do(t *testing.T) {
 	tests := []struct {
 		name    string
-		c       *UserPrincipalGetStreamerSubscriptionKeysCall
+		c       *UserPrincipalsGetStreamerSubscriptionKeysCall
 		want    *SubscriptionKey
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Test", NewUserPrincipalService(td).GetStreamerSubscriptionKeys(accountID), nil, false},
+		{"Test", NewUserPrincipalsService(td).GetStreamerSubscriptionKeys(accountID), nil, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := tt.c.Do()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("UserPrincipalGetStreamerSubscriptionKeysCall.Do() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("UserPrincipalsGetStreamerSubscriptionKeysCall.Do() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("UserPrincipalGetStreamerSubscriptionKeysCall.Do() = %v, want %v", got, tt.want)
+				t.Errorf("UserPrincipalsGetStreamerSubscriptionKeysCall.Do() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_UserPrincipalGetUserPrincipalsCall_Do(t *testing.T) {
+func Test_UserPrincipalsGetUserPrincipalsCall_Do(t *testing.T) {
 	tests := []struct {
 		name    string
-		c       *UserPrincipalGetUserPrincipalsCall
+		c       *UserPrincipalsGetUserPrincipalsCall
 		want    string
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Test", NewUserPrincipalService(td).GetUserPrincipals(), accountID, false},
+		{"Test", NewUserPrincipalsService(td).GetUserPrincipals(), accountID, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := tt.c.Do()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("UserPrincipalGetUserPrincipalsCall.Do() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("UserPrincipalsGetUserPrincipalsCall.Do() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got.PrimaryAccountID != tt.want {
-				t.Errorf("UserPrincipalGetUserPrincipalsCall.Do() = %+v, want %v", got, tt.want)
+				t.Errorf("UserPrincipalsGetUserPrincipalsCall.Do() = %+v, want %v", got, tt.want)
 			}
 		})
 	}

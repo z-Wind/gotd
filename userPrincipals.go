@@ -9,23 +9,23 @@ import (
 	"github.com/pkg/errors"
 )
 
-// NewUserPrincipalService https://developer.tdameritrade.com/user-principal/apis
+// NewUserPrincipalsService https://developer.tdameritrade.com/user-principal/apis
 // APIs to access user-authorized accounts and their preferences
-func NewUserPrincipalService(s *Service) *UserPrincipalService {
-	rs := &UserPrincipalService{s: s}
+func NewUserPrincipalsService(s *Service) *UserPrincipalsService {
+	rs := &UserPrincipalsService{s: s}
 	return rs
 }
 
-// UserPrincipalService https://developer.tdameritrade.com/user-principal/apis
+// UserPrincipalsService https://developer.tdameritrade.com/user-principal/apis
 // APIs to access user-authorized accounts and their preferences
-type UserPrincipalService struct {
+type UserPrincipalsService struct {
 	s *Service
 }
 
 // GetPreferences https://developer.tdameritrade.com/user-principal/apis/get/accounts/%7BaccountId%7D/preferences-0
 // Preferences for a specific account.
-func (r *UserPrincipalService) GetPreferences(accountID string) *UserPrincipalGetPreferencesCall {
-	c := &UserPrincipalGetPreferencesCall{
+func (r *UserPrincipalsService) GetPreferences(accountID string) *UserPrincipalsGetPreferencesCall {
+	c := &UserPrincipalsGetPreferencesCall{
 		DefaultCall: DefaultCall{
 			s:         r.s,
 			urlParams: url.Values{},
@@ -36,15 +36,15 @@ func (r *UserPrincipalService) GetPreferences(accountID string) *UserPrincipalGe
 	return c
 }
 
-// UserPrincipalGetPreferencesCall https://developer.tdameritrade.com/user-principal/apis/get/accounts/%7BaccountId%7D/preferences-0
+// UserPrincipalsGetPreferencesCall https://developer.tdameritrade.com/user-principal/apis/get/accounts/%7BaccountId%7D/preferences-0
 // Preferences for a specific account.
-type UserPrincipalGetPreferencesCall struct {
+type UserPrincipalsGetPreferencesCall struct {
 	DefaultCall
 
 	accountID string
 }
 
-func (c *UserPrincipalGetPreferencesCall) doRequest() (*http.Response, error) {
+func (c *UserPrincipalsGetPreferencesCall) doRequest() (*http.Response, error) {
 	reqHeaders := make(http.Header)
 	for k, v := range c.header {
 		reqHeaders[k] = v
@@ -64,7 +64,7 @@ func (c *UserPrincipalGetPreferencesCall) doRequest() (*http.Response, error) {
 }
 
 // Do send request
-func (c *UserPrincipalGetPreferencesCall) Do() (*Preferences, error) {
+func (c *UserPrincipalsGetPreferencesCall) Do() (*Preferences, error) {
 	res, err := c.doRequest()
 	if res != nil && res.StatusCode == http.StatusNotModified {
 		if res.Body != nil {
@@ -99,8 +99,8 @@ func (c *UserPrincipalGetPreferencesCall) Do() (*Preferences, error) {
 
 // GetStreamerSubscriptionKeys https://developer.tdameritrade.com/user-principal/apis/get/userprincipals/streamersubscriptionkeys-0
 // SubscriptionKey for provided accounts or default accounts.
-func (r *UserPrincipalService) GetStreamerSubscriptionKeys(accountIDs ...string) *UserPrincipalGetStreamerSubscriptionKeysCall {
-	c := &UserPrincipalGetStreamerSubscriptionKeysCall{
+func (r *UserPrincipalsService) GetStreamerSubscriptionKeys(accountIDs ...string) *UserPrincipalsGetStreamerSubscriptionKeysCall {
+	c := &UserPrincipalsGetStreamerSubscriptionKeysCall{
 		DefaultCall: DefaultCall{
 			s:         r.s,
 			urlParams: url.Values{},
@@ -113,11 +113,11 @@ func (r *UserPrincipalService) GetStreamerSubscriptionKeys(accountIDs ...string)
 
 // UserPrincipalGetStreamerSubscriptionKeysCall https://developer.tdameritrade.com/user-principal/apis/get/userprincipals/streamersubscriptionkeys-0
 // SubscriptionKey for provided accounts or default accounts.
-type UserPrincipalGetStreamerSubscriptionKeysCall struct {
+type UserPrincipalsGetStreamerSubscriptionKeysCall struct {
 	DefaultCall
 }
 
-func (c *UserPrincipalGetStreamerSubscriptionKeysCall) doRequest() (*http.Response, error) {
+func (c *UserPrincipalsGetStreamerSubscriptionKeysCall) doRequest() (*http.Response, error) {
 	reqHeaders := make(http.Header)
 	for k, v := range c.header {
 		reqHeaders[k] = v
@@ -137,7 +137,7 @@ func (c *UserPrincipalGetStreamerSubscriptionKeysCall) doRequest() (*http.Respon
 }
 
 // Do send request
-func (c *UserPrincipalGetStreamerSubscriptionKeysCall) Do() (*SubscriptionKey, error) {
+func (c *UserPrincipalsGetStreamerSubscriptionKeysCall) Do() (*SubscriptionKey, error) {
 	res, err := c.doRequest()
 	if res != nil && res.StatusCode == http.StatusNotModified {
 		if res.Body != nil {
@@ -172,8 +172,8 @@ func (c *UserPrincipalGetStreamerSubscriptionKeysCall) Do() (*SubscriptionKey, e
 
 // GetUserPrincipals https://developer.tdameritrade.com/user-principal/apis/get/userprincipals-0
 // User Principal details.
-func (r *UserPrincipalService) GetUserPrincipals() *UserPrincipalGetUserPrincipalsCall {
-	c := &UserPrincipalGetUserPrincipalsCall{
+func (r *UserPrincipalsService) GetUserPrincipals() *UserPrincipalsGetUserPrincipalsCall {
+	c := &UserPrincipalsGetUserPrincipalsCall{
 		DefaultCall: DefaultCall{
 			s:         r.s,
 			urlParams: url.Values{},
@@ -182,9 +182,9 @@ func (r *UserPrincipalService) GetUserPrincipals() *UserPrincipalGetUserPrincipa
 	return c
 }
 
-// UserPrincipalGetUserPrincipalsCall https://developer.tdameritrade.com/user-principal/apis/get/userprincipals-0
+// UserPrincipalsGetUserPrincipalsCall https://developer.tdameritrade.com/user-principal/apis/get/userprincipals-0
 // User Principal details.
-type UserPrincipalGetUserPrincipalsCall struct {
+type UserPrincipalsGetUserPrincipalsCall struct {
 	DefaultCall
 }
 
@@ -198,13 +198,13 @@ type UserPrincipalGetUserPrincipalsCall struct {
 //
 // Example:
 // fields=streamerSubscriptionKeys,streamerConnectionInfo
-func (c *UserPrincipalGetUserPrincipalsCall) Fields(fields ...string) *UserPrincipalGetUserPrincipalsCall {
+func (c *UserPrincipalsGetUserPrincipalsCall) Fields(fields ...string) *UserPrincipalsGetUserPrincipalsCall {
 	c.urlParams.Set("fields", strings.Join(fields, ","))
 
 	return c
 }
 
-func (c *UserPrincipalGetUserPrincipalsCall) doRequest() (*http.Response, error) {
+func (c *UserPrincipalsGetUserPrincipalsCall) doRequest() (*http.Response, error) {
 	reqHeaders := make(http.Header)
 	for k, v := range c.header {
 		reqHeaders[k] = v
@@ -224,7 +224,7 @@ func (c *UserPrincipalGetUserPrincipalsCall) doRequest() (*http.Response, error)
 }
 
 // Do send request
-func (c *UserPrincipalGetUserPrincipalsCall) Do() (*UserPrincipal, error) {
+func (c *UserPrincipalsGetUserPrincipalsCall) Do() (*UserPrincipal, error) {
 	res, err := c.doRequest()
 	if res != nil && res.StatusCode == http.StatusNotModified {
 		if res.Body != nil {
@@ -260,8 +260,8 @@ func (c *UserPrincipalGetUserPrincipalsCall) Do() (*UserPrincipal, error) {
 // UpdatePreferences https://developer.tdameritrade.com/user-principal/apis/put/accounts/%7BaccountId%7D/preferences-0
 // Update preferences for a specific account.
 // Please note that the directOptionsRouting and directEquityRouting values cannot be modified via this operation.
-func (r *UserPrincipalService) UpdatePreferences(accountID string, preferences *Preferences) *UserPrincipalUpdatePreferencesCall {
-	c := &UserPrincipalUpdatePreferencesCall{
+func (r *UserPrincipalsService) UpdatePreferences(accountID string, preferences *Preferences) *UserPrincipalsUpdatePreferencesCall {
+	c := &UserPrincipalsUpdatePreferencesCall{
 		DefaultCall: DefaultCall{
 			s:         r.s,
 			urlParams: url.Values{},
@@ -273,17 +273,17 @@ func (r *UserPrincipalService) UpdatePreferences(accountID string, preferences *
 	return c
 }
 
-// UserPrincipalUpdatePreferencesCall https://developer.tdameritrade.com/user-principal/apis/put/accounts/%7BaccountId%7D/preferences-0
+// UserPrincipalsUpdatePreferencesCall https://developer.tdameritrade.com/user-principal/apis/put/accounts/%7BaccountId%7D/preferences-0
 // Update preferences for a specific account.
 // Please note that the directOptionsRouting and directEquityRouting values cannot be modified via this operation.
-type UserPrincipalUpdatePreferencesCall struct {
+type UserPrincipalsUpdatePreferencesCall struct {
 	DefaultCall
 
 	accountID   string
 	preferences *Preferences
 }
 
-func (c *UserPrincipalUpdatePreferencesCall) doRequest() (*http.Response, error) {
+func (c *UserPrincipalsUpdatePreferencesCall) doRequest() (*http.Response, error) {
 	reqHeaders := make(http.Header)
 	for k, v := range c.header {
 		reqHeaders[k] = v
@@ -307,7 +307,7 @@ func (c *UserPrincipalUpdatePreferencesCall) doRequest() (*http.Response, error)
 }
 
 // Do send request
-func (c *UserPrincipalUpdatePreferencesCall) Do() (*UserPrincipal, error) {
+func (c *UserPrincipalsUpdatePreferencesCall) Do() (*UserPrincipal, error) {
 	res, err := c.doRequest()
 	if res != nil && res.StatusCode == http.StatusNotModified {
 		if res.Body != nil {
