@@ -44,8 +44,7 @@ func ExampleQuotesService_GetQuote() {
 		log.Fatal(err)
 	}
 
-	service := NewQuotesService(td)
-	call := service.GetQuote("VTI")
+	call := td.Quotes.GetQuote("VTI")
 	quote, err := call.Do()
 	if err != nil {
 		log.Fatal(err)

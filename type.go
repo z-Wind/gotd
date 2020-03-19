@@ -27,7 +27,7 @@ type DefaultCall struct {
 // Context sets the context to be used in this call's Do method. Any
 // pending HTTP request will be aborted if the provided context is
 // canceled.
-func (c *DefaultCall) Context(ctx context.Context) *AccountsGetAccountCall {
+func (c *DefaultCall) Context(ctx context.Context) *DefaultCall {
 	c.ctx = ctx
 	return c
 }

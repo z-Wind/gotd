@@ -35,10 +35,9 @@ client := auth.GetClient(clientsecretPath)
 td, err := New(client)
 ```
 
-### Quote
+### Quotes
 ```go
-service := NewQuotesService(td)
-call := service.GetQuote("VTI")
+call := td.Quotes.GetQuote("VTI")
 quote, err := call.Do()
 ```
 
