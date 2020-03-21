@@ -80,7 +80,7 @@ func (a *Auth) SetTLS(TLSCertPath, TLSKeyPath string) {
 
 // GetClient generate a Client. It returns the generated Client.
 // clientsecret file format reference to client_secret.json.sample
-func (a *Auth) GetClient(clientsecretPath string) *http.Client {
+func (a *Auth) GetClient(clientsecretPath, tokenFile string) *http.Client {
 	ctx := context.Background()
 
 	b, err := ioutil.ReadFile(clientsecretPath)
@@ -101,7 +101,7 @@ func (a *Auth) GetClient(clientsecretPath string) *http.Client {
 	// Use the following redirect URI if launchWebServer=false in oauth2.go
 	// config.RedirectURL = "urn:ietf:wg:oauth:2.0:oob"
 
-	cacheFile, err := a.tokenCacheFile("TDAmeritrade-go.json")
+	cacheFile, err := a.tokenCacheFile(tokenFile)
 	if err != nil {
 		log.Fatalf("Unable to get path to cached credential file. %v", err)
 	}

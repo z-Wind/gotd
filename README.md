@@ -23,7 +23,7 @@
 ### HTTP
 ```go
 auth := NewAuth(redirectURL)
-client := auth.GetClient(clientsecretPath)
+client := auth.GetClient(clientsecretPath, "TDAmeritrade-go.json")
 td, err := New(client)
 ```
 
@@ -31,7 +31,7 @@ td, err := New(client)
 ```go
 auth := NewAuth(redirectURL)
 auth.SetTLS(TLSCertPath, TLSKeyPath)
-client := auth.GetClient(clientsecretPath)
+client := auth.GetClient(clientsecretPath, "TDAmeritrade-go.json")
 td, err := New(client)
 ```
 
