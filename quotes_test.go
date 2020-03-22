@@ -14,6 +14,7 @@ func TestQuotesGetQuoteCall_Do(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{"Test", NewQuotesService(td).GetQuote("VTI"), "VTI", false},
+		{"Test", NewQuotesService(td).GetQuote("0050"), "0050", true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -22,7 +23,7 @@ func TestQuotesGetQuoteCall_Do(t *testing.T) {
 				t.Errorf("QuotesGetQuoteCall.Do() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got.Symbol != tt.want {
+			if got != nil && got.Symbol != tt.want {
 				t.Errorf("QuotesGetQuoteCall.Do() = %+v, want %v", got, tt.want)
 			}
 		})

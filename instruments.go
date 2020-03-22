@@ -1,6 +1,7 @@
 package gotd
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -158,6 +159,10 @@ func (c *InstrumentsGetInstrumentCall) Do() (*Instrument, error) {
 	target := new([]*Instrument)
 	if err := DecodeResponse(target, res); err != nil {
 		return nil, errors.Wrapf(err, "DecodeResponse")
+	}
+
+	if len(*target) == 0 {
+		return nil, fmt.Errorf("%s could not be found", c.cusip)
 	}
 
 	ret := (*target)[0]

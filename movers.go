@@ -1,6 +1,7 @@
 package gotd
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -100,7 +101,11 @@ func (c *MoversGetMoversCall) Do() (*Mover, error) {
 	if err := DecodeResponse(target, res); err != nil {
 		return nil, errors.Wrapf(err, "DecodeResponse")
 	}
-	ret := (*target)[c.index]
+
+	ret, ok := (*target)[c.index]
+	if !ok {
+		return nil, fmt.Errorf("%s could not be found", c.index)
+	}
 	ret.ServerResponse = ServerResponse{
 		Header:         res.Header,
 		HTTPStatusCode: res.StatusCode,

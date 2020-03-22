@@ -43,6 +43,7 @@ func TestInstrumentsGetInstrumentCall_Do(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{"Test", NewInstrumentsService(td).GetInstrument("921937835"), "BND", false},
+		{"Test", NewInstrumentsService(td).GetInstrument("123456789"), "", true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -51,7 +52,7 @@ func TestInstrumentsGetInstrumentCall_Do(t *testing.T) {
 				t.Errorf("InstrumentsGetInstrumentCall.Do() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got.Symbol != tt.want {
+			if got != nil && got.Symbol != tt.want {
 				t.Errorf("InstrumentsGetInstrumentCall.Do() = %v, want %v", got, tt.want)
 			}
 		})

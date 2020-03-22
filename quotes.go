@@ -1,6 +1,7 @@
 package gotd
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -88,7 +89,10 @@ func (c *QuotesGetQuoteCall) Do() (*Quote, error) {
 		return nil, errors.Wrapf(err, "DecodeResponse")
 	}
 
-	ret := (*target)[c.symbol]
+	ret, ok := (*target)[c.symbol]
+	if !ok {
+		return nil, fmt.Errorf("%s could not be found", c.symbol)
+	}
 	ret.ServerResponse = ServerResponse{
 		Header:         res.Header,
 		HTTPStatusCode: res.StatusCode,
