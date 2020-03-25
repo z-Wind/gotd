@@ -60,13 +60,8 @@ type Auth struct {
 }
 
 // NewAuth create Auth
-func NewAuth(redirectURL string) *Auth {
+func NewAuth() *Auth {
 	a := &Auth{}
-	var err error
-	a.redirectURL, err = url.Parse(redirectURL)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	return a
 }
@@ -148,6 +143,15 @@ func (a *Auth) configFromJSON(jsonKey []byte, scope ...string) error {
 	if len(c.RedirectURIs) < 1 {
 		return errors.New("oauth2: missing redirect URL in the client_credentials.json")
 	}
+
+	for _, redirectURL := range c.RedirectURIs {
+		var err error
+		a.redirectURL, err = url.Parse(redirectURL)
+		if err == nil {
+			break
+		}
+	}
+
 	a.config = &oauth2.Config{
 		ClientID:     c.ClientID,
 		ClientSecret: c.ClientSecret,
