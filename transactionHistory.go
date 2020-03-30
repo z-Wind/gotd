@@ -142,7 +142,7 @@ func (c *TransactionHistoryGetTransactionListCall) Symbol(symbol string) *Transa
 // Note: The maximum date range is one year. Valid ISO-8601 formats are :
 // yyyy-MM-dd.
 func (c *TransactionHistoryGetTransactionListCall) StartDate(date time.Time) *TransactionHistoryGetTransactionListCall {
-	c.urlParams.Set("startDate", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("startDate", date.Format("2006-01-02"))
 	return c
 }
 
@@ -151,7 +151,7 @@ func (c *TransactionHistoryGetTransactionListCall) StartDate(date time.Time) *Tr
 // Note: The maximum date range is one year. Valid ISO-8601 formats are :
 // yyyy-MM-dd.
 func (c *TransactionHistoryGetTransactionListCall) EndDate(date time.Time) *TransactionHistoryGetTransactionListCall {
-	c.urlParams.Set("endDate", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("endDate", date.Format("2006-01-02"))
 	return c
 }
 

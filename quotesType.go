@@ -37,6 +37,7 @@ type Quote struct {
 	DivYield        float64 `json:"divYield,omitempty"`
 	DivDate         string  `json:"divDate,omitempty"`
 	SecurityStatus  string  `json:"securityStatus,omitempty"`
+	Delayed         bool    `json:"Delayed,omitempty"`
 
 	// Future
 	//Symbol                string  `json:"symbol,omitempty"`
@@ -44,6 +45,7 @@ type Quote struct {
 	AskPriceInDouble   float64 `json:"askPriceInDouble,omitempty"`
 	LastPriceInDouble  float64 `json:"lastPriceInDouble,omitempty"`
 	BidID              string  `json:"bidId,omitempty"`
+	BidTick            string  `json:"bidTick,omitempty"`
 	AskID              string  `json:"askId,omitempty"`
 	HighPriceInDouble  float64 `json:"highPriceInDouble,omitempty"`
 	LowPriceInDouble   float64 `json:"lowPriceInDouble,omitempty"`

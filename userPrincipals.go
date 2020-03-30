@@ -111,7 +111,7 @@ func (r *UserPrincipalsService) GetStreamerSubscriptionKeys(accountIDs ...string
 	return c
 }
 
-// UserPrincipalGetStreamerSubscriptionKeysCall https://developer.tdameritrade.com/user-principal/apis/get/userprincipals/streamersubscriptionkeys-0
+// UserPrincipalsGetStreamerSubscriptionKeysCall https://developer.tdameritrade.com/user-principal/apis/get/userprincipals/streamersubscriptionkeys-0
 // SubscriptionKey for provided accounts or default accounts.
 type UserPrincipalsGetStreamerSubscriptionKeysCall struct {
 	DefaultCall
@@ -307,7 +307,7 @@ func (c *UserPrincipalsUpdatePreferencesCall) doRequest() (*http.Response, error
 }
 
 // Do send request
-func (c *UserPrincipalsUpdatePreferencesCall) Do() (*UserPrincipal, error) {
+func (c *UserPrincipalsUpdatePreferencesCall) Do() (*ServerResponse, error) {
 	res, err := c.doRequest()
 	if res != nil && res.StatusCode == http.StatusNotModified {
 		if res.Body != nil {
@@ -326,16 +326,10 @@ func (c *UserPrincipalsUpdatePreferencesCall) Do() (*UserPrincipal, error) {
 		return nil, errors.Wrapf(err, "CheckResponse")
 	}
 
-	ret := &UserPrincipal{
-		ServerResponse: ServerResponse{
-			Header:         res.Header,
-			HTTPStatusCode: res.StatusCode,
-		},
-	}
-	target := &ret
-	if err := DecodeResponse(target, res); err != nil {
-		return nil, errors.Wrapf(err, "DecodeResponse")
+	ServerResponse := &ServerResponse{
+		Header:         res.Header,
+		HTTPStatusCode: res.StatusCode,
 	}
 
-	return ret, nil
+	return ServerResponse, nil
 }

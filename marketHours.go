@@ -47,7 +47,7 @@ type MarketHoursGetHoursForMultipleMarketsCall struct {
 // Date https://developer.tdameritrade.com/market-hours/apis/get/marketdata/hours
 // "The date for which market hours information is requested. Valid ISO-8601 formats are : yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz."
 func (c *MarketHoursGetHoursForMultipleMarketsCall) Date(date time.Time) *MarketHoursGetHoursForMultipleMarketsCall {
-	c.urlParams.Set("date", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("date", date.Format("2006-01-02"))
 
 	return c
 }
@@ -97,7 +97,7 @@ func (c *MarketHoursGetHoursForMultipleMarketsCall) Do() (*MarketHourMap, error)
 			HTTPStatusCode: res.StatusCode,
 		},
 	}
-	target := new(map[string]map[string]*MarketHour)
+	target := new(map[string]map[string]MarketHour)
 	if err := DecodeResponse(target, res); err != nil {
 		return nil, errors.Wrapf(err, "DecodeResponse")
 	}
@@ -131,7 +131,7 @@ type MarketHoursGetHoursForASingleMarketCall struct {
 // Date https://developer.tdameritrade.com/market-hours/apis/get/marketdata/%7Bmarket%7D/hours
 // "The date for which market hours information is requested. Valid ISO-8601 formats are : yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz."
 func (c *MarketHoursGetHoursForASingleMarketCall) Date(date time.Time) *MarketHoursGetHoursForASingleMarketCall {
-	c.urlParams.Set("date", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("date", date.Format("2006-01-02"))
 
 	return c
 }
@@ -181,7 +181,7 @@ func (c *MarketHoursGetHoursForASingleMarketCall) Do() (*MarketHourProductMap, e
 			HTTPStatusCode: res.StatusCode,
 		},
 	}
-	target := new(map[string]map[string]*MarketHour)
+	target := new(map[string]map[string]MarketHour)
 	if err := DecodeResponse(target, res); err != nil {
 		return nil, errors.Wrapf(err, "DecodeResponse")
 	}

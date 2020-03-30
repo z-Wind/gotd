@@ -7,6 +7,10 @@ import (
 )
 
 func TestNewServer(t *testing.T) {
+	if !onlineTest {
+		t.Skipf("online Test setting is %v", onlineTest)
+	}
+
 	auth := NewAuth()
 	auth.SetTLS("./instance/cert.pem", "./instance/key.pem")
 	client := auth.GetClient(clientsecretPath, "TDAmeritrade-go.json")
@@ -49,8 +53,5 @@ func ExampleQuotesService_GetQuote() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%s\n", quote.Symbol)
-
-	// Output:
-	// VTI
+	fmt.Printf("%+v\n", quote)
 }

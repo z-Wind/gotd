@@ -93,12 +93,12 @@ func (c *SavedOrdersReplaceSavedOrderCall) Do() (*ServerResponse, error) {
 		return nil, errors.Wrapf(err, "CheckResponse")
 	}
 
-	serverResponse := &ServerResponse{
+	ServerResponse := &ServerResponse{
 		Header:         res.Header,
 		HTTPStatusCode: res.StatusCode,
 	}
 
-	return serverResponse, nil
+	return ServerResponse, nil
 }
 
 // GetSavedOrdersByPath https://developer.tdameritrade.com/account-access/apis/get/accounts/%7BaccountId%7D/savedorders-0

@@ -1,5 +1,6 @@
 package gotd
 
+// setting value
 const (
 	AccountFieldPositions = "positions"
 	AccountFieldOrders    = "orders"

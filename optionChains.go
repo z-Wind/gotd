@@ -106,14 +106,14 @@ func (c *OptionChainsGetOptionChainCall) Range(r string) *OptionChainsGetOptionC
 // FromDate https://developer.tdameritrade.com/option-chains/apis/get/marketdata/chains
 // Only return expirations after this date. For strategies, expiration refers to the nearest term expiration in the strategy. Valid ISO-8601 formats are: yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz.
 func (c *OptionChainsGetOptionChainCall) FromDate(date time.Time) *OptionChainsGetOptionChainCall {
-	c.urlParams.Set("fromDate", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("fromDate", date.Format("2006-01-02"))
 	return c
 }
 
 // ToDate https://developer.tdameritrade.com/option-chains/apis/get/marketdata/chains
 // Only return expirations before this date. For strategies, expiration refers to the nearest term expiration in the strategy. Valid ISO-8601 formats are: yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz.
 func (c *OptionChainsGetOptionChainCall) ToDate(date time.Time) *OptionChainsGetOptionChainCall {
-	c.urlParams.Set("toDate", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("toDate", date.Format("2006-01-02"))
 	return c
 }
 

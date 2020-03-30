@@ -94,12 +94,12 @@ func (c *OrdersReplaceOrderCall) Do() (*ServerResponse, error) {
 		return nil, errors.Wrapf(err, "CheckResponse")
 	}
 
-	serverResponse := &ServerResponse{
+	ServerResponse := &ServerResponse{
 		Header:         res.Header,
 		HTTPStatusCode: res.StatusCode,
 	}
 
-	return serverResponse, nil
+	return ServerResponse, nil
 }
 
 // GetOrdersByQuery https://developer.tdameritrade.com/account-access/apis/get/orders-0
@@ -133,7 +133,7 @@ func (c *OrdersGetOrdersByQueryCall) MaxResults(n int) *OrdersGetOrdersByQueryCa
 // Specifies that no orders entered before this time should be returned.Valid ISO-8601 formats are :
 // yyyy-MM-dd. Date must be within 60 days from today's date. 'toEnteredTime' must also be set.
 func (c *OrdersGetOrdersByQueryCall) FromEnteredTime(date time.Time) *OrdersGetOrdersByQueryCall {
-	c.urlParams.Set("fromEnteredTime", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("fromEnteredTime", date.Format("2006-01-02"))
 
 	return c
 }
@@ -142,7 +142,7 @@ func (c *OrdersGetOrdersByQueryCall) FromEnteredTime(date time.Time) *OrdersGetO
 // Specifies that no orders entered after this time should be returned.Valid ISO-8601 formats are :
 // yyyy-MM-dd. 'fromEnteredTime' must also be set.
 func (c *OrdersGetOrdersByQueryCall) ToEnteredTime(date time.Time) *OrdersGetOrdersByQueryCall {
-	c.urlParams.Set("toEnteredTime", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("toEnteredTime", date.Format("2006-01-02"))
 
 	return c
 }
@@ -242,7 +242,7 @@ func (c *OrdersGetOrdersByPathCall) MaxResults(n int) *OrdersGetOrdersByPathCall
 // Specifies that no orders entered before this time should be returned. Valid ISO-8601 formats are :
 // yyyy-MM-dd. Date must be within 60 days from today's date. 'toEnteredTime' must also be set.
 func (c *OrdersGetOrdersByPathCall) FromEnteredTime(date time.Time) *OrdersGetOrdersByPathCall {
-	c.urlParams.Set("fromEnteredTime", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("fromEnteredTime", date.Format("2006-01-02"))
 
 	return c
 }
@@ -251,7 +251,7 @@ func (c *OrdersGetOrdersByPathCall) FromEnteredTime(date time.Time) *OrdersGetOr
 // Specifies that no orders entered after this time should be returned.Valid ISO-8601 formats are :
 // yyyy-MM-dd. 'fromEnteredTime' must also be set.
 func (c *OrdersGetOrdersByPathCall) ToEnteredTime(date time.Time) *OrdersGetOrdersByPathCall {
-	c.urlParams.Set("toEnteredTime", date.UTC().Format("2006-01-02"))
+	c.urlParams.Set("toEnteredTime", date.Format("2006-01-02"))
 
 	return c
 }

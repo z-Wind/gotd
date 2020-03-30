@@ -4,6 +4,8 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"strconv"
+	"time"
 )
 
 // ServerResponse is embedded in each Do response and
@@ -39,4 +41,31 @@ func (c *DefaultCall) Header() http.Header {
 		c.header = make(http.Header)
 	}
 	return c.header
+}
+
+// Time for time.Unix
+type Time time.Time
+
+// UnmarshalJSON for time.Unix
+func (t *Time) UnmarshalJSON(bs []byte) (err error) {
+	millis, err := strconv.ParseInt(string(bs), 10, 64)
+	if err != nil {
+		return err
+	}
+
+	*t = Time(time.Unix(0, millis*int64(time.Millisecond)))
+
+	return nil
+}
+
+// MarshalJSON for time.Unix
+func (t *Time) MarshalJSON() ([]byte, error) {
+	millis := time.Time(*t).UnixNano() / int64(time.Millisecond)
+	s := strconv.FormatInt(millis, 10)
+
+	return []byte(s), nil
+}
+
+func (t Time) String() string {
+	return time.Time(t).String()
 }

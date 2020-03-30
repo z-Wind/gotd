@@ -94,7 +94,7 @@ type OrderStrategie struct {
 	EnteredTime              string                `json:"enteredTime,omitempty"`
 	CloseTime                string                `json:"closeTime,omitempty"`
 	Tag                      string                `json:"tag,omitempty"`
-	AccountID                string                `json:"accountId,omitempty"`
+	AccountID                int64                 `json:"accountId,omitempty"`
 	OrderActivityCollection  []*Execution          `json:"orderActivityCollection,omitempty"`  //: ["\"The type <OrderActivity> has the following subclasses [Execution] descriptions are listed below\""],
 	ReplacingOrderCollection []json.RawMessage     `json:"replacingOrderCollection,omitempty"` //: [ {} ],
 	ChildOrderStrategies     []json.RawMessage     `json:"childOrderStrategies,omitempty"`     //: [ {}  ],

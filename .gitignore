@@ -16,5 +16,5 @@
 
 # private
 client_secret.json
-secret*
+init_test_secret.go
 instance/*

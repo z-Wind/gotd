@@ -15,7 +15,7 @@ type SessionHours struct {
 
 // MarketHourMap https://developer.tdameritrade.com/market-hours/apis
 type MarketHourMap struct {
-	MarketHourProductMaps map[string]map[string]*MarketHour
+	MarketHourProductMaps map[string]map[string]MarketHour
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -24,7 +24,7 @@ type MarketHourMap struct {
 
 // MarketHourProductMap https://developer.tdameritrade.com/market-hours/apis
 type MarketHourProductMap struct {
-	MarketHours map[string]*MarketHour
+	MarketHours map[string]MarketHour
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
