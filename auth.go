@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"time"
 
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
@@ -101,7 +102,17 @@ func (a *Auth) GetClient(clientsecretPath, tokenFile string) *http.Client {
 		log.Fatalf("Unable to get path to cached credential file. %v", err)
 	}
 	token, err := a.tokenFromFile(cacheFile)
-	if err != nil {
+	refresh_token_expired := false
+	if err == nil {
+		// token.Expiry is the expiry of Access Token
+		// oauth2 does not change the token.Expiry even it refresh Access Toke
+		// so we can use it to estimate the expiry of Refresh Token
+		// A Refresh Token is valid for 90 days
+		Day := time.Hour * 24
+		valid_duration := Day * 90
+		refresh_token_expired = token.Expiry.Round(0).Add(valid_duration - Day).Before(time.Now())
+	}
+	if err != nil || refresh_token_expired {
 		if launchWebServer {
 			fmt.Println("Trying to get token from web")
 			token, err = a.getTokenFromWeb()

@@ -19,6 +19,13 @@ func TestNewServer(t *testing.T) {
 		t.Fatal(err)
 	}
 	t.Logf("%+v", td)
+
+	call := td.Quotes.GetQuote("VTI")
+	quote, err := call.Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%+v\n", quote)
 }
 
 func ExampleAuth_GetClient() {
