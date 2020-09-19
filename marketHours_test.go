@@ -49,24 +49,24 @@ func TestMarketHoursGetHoursForMultipleMarketsCall_Do(t *testing.T) {
 		{"Test", NewMarketHoursService(tdTest).GetHoursForMultipleMarkets(), &MarketHourMap{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			MarketHourProductMaps: map[string]map[string]MarketHour{
-				"bond": map[string]MarketHour{
-					"bond": MarketHour{
+				"bond": {
+					"bond": {
 						Date:       "2018-11-03",
 						MarketType: "BOND",
 						Product:    "bond",
 						IsOpen:     false,
 					},
 				},
-				"equity": map[string]MarketHour{
-					"equity": MarketHour{
+				"equity": {
+					"equity": {
 						Date:       "2018-11-03",
 						MarketType: "EQUITY",
 						Product:    "equity",
 						IsOpen:     false,
 					},
 				},
-				"future": map[string]MarketHour{
-					"CTW": MarketHour{
+				"future": {
+					"CTW": {
 						Date:        "2018-11-03",
 						MarketType:  "FUTURE",
 						Exchange:    "ICE",
@@ -76,13 +76,13 @@ func TestMarketHoursGetHoursForMultipleMarketsCall_Do(t *testing.T) {
 						IsOpen:      true,
 						SessionHours: SessionHours{
 							PreMarket: []Period{
-								Period{
+								{
 									Start: "2018-11-03T19:30:00-04:00",
 									End:   "2018-11-03T21:00:00-04:00",
 								},
 							},
 							RegularMarket: []Period{
-								Period{
+								{
 									Start: "2018-11-03T21:00:00-04:00",
 									End:   "2018-11-04T14:20:00-05:00",
 								},
@@ -99,13 +99,13 @@ func TestMarketHoursGetHoursForMultipleMarketsCall_Do(t *testing.T) {
 						IsOpen:      true,
 						SessionHours: SessionHours{
 							PreMarket: []Period{
-								Period{
+								{
 									Start: "2018-11-03T19:30:00-04:00",
 									End:   "2018-11-03T20:00:00-04:00",
 								},
 							},
 							RegularMarket: []Period{
-								Period{
+								{
 									Start: "2018-11-03T20:00:00-04:00",
 									End:   "2018-11-04T17:00:00-05:00",
 								},
@@ -113,8 +113,8 @@ func TestMarketHoursGetHoursForMultipleMarketsCall_Do(t *testing.T) {
 						},
 					},
 				},
-				"option": map[string]MarketHour{
-					"option": MarketHour{
+				"option": {
+					"option": {
 						Date:       "2018-11-03",
 						MarketType: "OPTION",
 						Product:    "option",
@@ -181,7 +181,7 @@ func TestMarketHoursGetHoursForASingleMarketCall_Do(t *testing.T) {
 		{"Normal", NewMarketHoursService(tdTest).GetHoursForASingleMarket(HoursMarketsEQUITY), &MarketHourProductMap{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			MarketHours: map[string]MarketHour{
-				"equity": MarketHour{
+				"equity": {
 					Date:       "2018-11-03",
 					MarketType: "EQUITY",
 					Product:    "equity",

@@ -53,7 +53,7 @@ func TestInstrumentsSearchInstrumentsCall_Do(t *testing.T) {
 		{"Test", NewInstrumentsService(tdTest).SearchInstruments("symbol", InstrumentsProjectionSymbolSearch), &InstrumentMap{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Instruments: map[string]*Instrument{
-				"VTI": &Instrument{
+				"VTI": {
 					Cusip:       "123456789",
 					Symbol:      "VTI",
 					Description: "Vanguard Total Stock Market ETF",
@@ -65,7 +65,7 @@ func TestInstrumentsSearchInstrumentsCall_Do(t *testing.T) {
 		{"Real", NewInstrumentsService(tdReal).SearchInstruments("VTI", InstrumentsProjectionSymbolSearch), &InstrumentMap{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Instruments: map[string]*Instrument{
-				"VTI": &Instrument{
+				"VTI": {
 					Cusip:       "922908769",
 					Symbol:      "VTI",
 					Description: "Vanguard Total Stock Market ETF",

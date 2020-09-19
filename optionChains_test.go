@@ -89,8 +89,8 @@ func TestOptionChainsGetOptionChainCall_Do(t *testing.T) {
 			Volatility:       29,
 			DaysToExpiration: 0,
 			CallExpDateMap: map[string]map[string][]*Option{
-				"2018-11-16:13": map[string][]*Option{
-					"124.0": []*Option{
+				"2018-11-16:13": {
+					"124.0": {
 						{
 							PutCall:                "CALL",
 							Symbol:                 "VTI_111618C124",
@@ -295,8 +295,8 @@ func TestOptionChainsGetOptionChainCall_Do(t *testing.T) {
 				},
 			},
 			PutExpDateMap: map[string]map[string][]*Option{
-				"2018-11-16:13": map[string][]*Option{
-					"124.0": []*Option{
+				"2018-11-16:13": {
+					"124.0": {
 						{
 							PutCall:                "PUT",
 							Symbol:                 "VTI_111618P124",

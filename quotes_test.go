@@ -151,7 +151,7 @@ func TestQuotesGetQuoteListCall_Do(t *testing.T) {
 		{"Normal", NewQuotesService(tdTest).GetQuoteList("BND", "VTI"), &QuoteMap{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Quotes: map[string]*Quote{
-				"BND": &Quote{
+				"BND": {
 					AssetType:                    "ETF",
 					Symbol:                       "BND",
 					Description:                  "Vanguard Total Bond Market ETF",
@@ -194,7 +194,7 @@ func TestQuotesGetQuoteListCall_Do(t *testing.T) {
 					RegularMarketTradeTimeInLong: 1234567890246,
 					Delayed:                      false,
 				},
-				"VTI": &Quote{
+				"VTI": {
 					AssetType:                    "ETF",
 					Symbol:                       "VTI",
 					Description:                  "Vanguard Total Stock Market ETF",

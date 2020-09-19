@@ -150,12 +150,12 @@ func TestWatchlistGetWatchlistsForMultipleAccountsCall_Do(t *testing.T) {
 		{"Test", NewWatchlistService(tdTest).GetWatchlistsForMultipleAccounts(), &WatchlistList{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Watchlists: []*Watchlist{
-				&Watchlist{
+				{
 					Name:        "default",
 					WatchlistID: "1234567893",
 					AccountID:   "123456789",
 					WatchlistItems: []*WatchlistItem{
-						&WatchlistItem{
+						{
 							SequenceID:   1,
 							Quantity:     0,
 							AveragePrice: 0,
@@ -165,7 +165,7 @@ func TestWatchlistGetWatchlistsForMultipleAccountsCall_Do(t *testing.T) {
 								AssetType: "EQUITY",
 							},
 						},
-						&WatchlistItem{
+						{
 							SequenceID:   2,
 							Quantity:     0,
 							AveragePrice: 0,
@@ -177,7 +177,7 @@ func TestWatchlistGetWatchlistsForMultipleAccountsCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "Quotes",
 					WatchlistID: "1234567898",
 					AccountID:   "123456789",
@@ -214,7 +214,7 @@ func TestWatchlistGetWatchlistsForMultipleAccountsCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "Indexes",
 					WatchlistID: "1234567896",
 					AccountID:   "123456789",
@@ -261,7 +261,7 @@ func TestWatchlistGetWatchlistsForMultipleAccountsCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "test",
 					WatchlistID: "1234567890",
 					AccountID:   "123456789",
@@ -288,7 +288,7 @@ func TestWatchlistGetWatchlistsForMultipleAccountsCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "ETF",
 					WatchlistID: "12345678",
 					AccountID:   "123456789",
@@ -373,12 +373,12 @@ func TestWatchlistGetWatchlistsForSingleAccountCall_Do(t *testing.T) {
 		{"Test", NewWatchlistService(tdTest).GetWatchlistsForSingleAccount(accountID), &WatchlistList{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Watchlists: []*Watchlist{
-				&Watchlist{
+				{
 					Name:        "default",
 					WatchlistID: "1234567893",
 					AccountID:   "123456789",
 					WatchlistItems: []*WatchlistItem{
-						&WatchlistItem{
+						{
 							SequenceID:   1,
 							Quantity:     0,
 							AveragePrice: 0,
@@ -388,7 +388,7 @@ func TestWatchlistGetWatchlistsForSingleAccountCall_Do(t *testing.T) {
 								AssetType: "EQUITY",
 							},
 						},
-						&WatchlistItem{
+						{
 							SequenceID:   2,
 							Quantity:     0,
 							AveragePrice: 0,
@@ -400,7 +400,7 @@ func TestWatchlistGetWatchlistsForSingleAccountCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "Quotes",
 					WatchlistID: "1234567898",
 					AccountID:   "123456789",
@@ -437,7 +437,7 @@ func TestWatchlistGetWatchlistsForSingleAccountCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "Indexes",
 					WatchlistID: "1234567896",
 					AccountID:   "123456789",
@@ -484,7 +484,7 @@ func TestWatchlistGetWatchlistsForSingleAccountCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "test",
 					WatchlistID: "1234567890",
 					AccountID:   "123456789",
@@ -511,7 +511,7 @@ func TestWatchlistGetWatchlistsForSingleAccountCall_Do(t *testing.T) {
 						},
 					},
 				},
-				&Watchlist{
+				{
 					Name:        "ETF",
 					WatchlistID: "12345678",
 					AccountID:   "123456789",
@@ -710,7 +710,7 @@ func TestWatchlistGetWatchlistCall_Do(t *testing.T) {
 			WatchlistID:    "1234567893",
 			AccountID:      "123456789",
 			WatchlistItems: []*WatchlistItem{
-				&WatchlistItem{
+				{
 					SequenceID:   1,
 					Quantity:     0,
 					AveragePrice: 0,
@@ -720,7 +720,7 @@ func TestWatchlistGetWatchlistCall_Do(t *testing.T) {
 						AssetType: "EQUITY",
 					},
 				},
-				&WatchlistItem{
+				{
 					SequenceID:   2,
 					Quantity:     0,
 					AveragePrice: 0,

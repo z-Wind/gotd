@@ -27,7 +27,7 @@ func Test_Order(t *testing.T) {
 		CancelTime: time.Now().AddDate(0, 4, 0).UTC().Format("2006-01-02"),
 		Price:      1.1,
 		OrderLegCollections: []*OrderLegCollection{
-			&OrderLegCollection{
+			{
 				Instrument: &Instrument{
 					Symbol:    "BWX",
 					AssetType: OrderAssetTypeEQUITY,
@@ -241,7 +241,7 @@ func TestOrdersGetOrdersByQueryCall_Do(t *testing.T) {
 		{"Test", NewOrdersService(tdTest).GetOrdersByQuery("accountID"), &OrderList{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Orders: []*Order{
-				&Order{
+				{
 					Session:                  "NORMAL",
 					Duration:                 "GOOD_TILL_CANCEL",
 					OrderType:                "LIMIT",
@@ -254,7 +254,7 @@ func TestOrdersGetOrdersByQueryCall_Do(t *testing.T) {
 					DestinationLinkName:      "AutoRoute",
 					Price:                    2,
 					OrderLegCollections: []*OrderLegCollection{
-						&OrderLegCollection{
+						{
 							OrderLegType: "EQUITY",
 							LegID:        1,
 							Instrument: &Instrument{
@@ -278,7 +278,7 @@ func TestOrdersGetOrdersByQueryCall_Do(t *testing.T) {
 					AccountID:         123456789,
 					StatusDescription: "Your limit price is too distant from the current quote. Try again.",
 				},
-				&Order{
+				{
 					Session:                  "NORMAL",
 					Duration:                 "GOOD_TILL_CANCEL",
 					OrderType:                "LIMIT",
@@ -291,7 +291,7 @@ func TestOrdersGetOrdersByQueryCall_Do(t *testing.T) {
 					DestinationLinkName:      "AutoRoute",
 					Price:                    20,
 					OrderLegCollections: []*OrderLegCollection{
-						&OrderLegCollection{
+						{
 							OrderLegType: "EQUITY",
 							LegID:        1,
 							Instrument: &Instrument{
@@ -401,7 +401,7 @@ func TestOrdersGetOrdersByPathCall_Do(t *testing.T) {
 		{"Test", NewOrdersService(tdTest).GetOrdersByPath("accountID"), &OrderList{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Orders: []*Order{
-				&Order{
+				{
 					Session:                  "NORMAL",
 					Duration:                 "GOOD_TILL_CANCEL",
 					OrderType:                "LIMIT",
@@ -414,7 +414,7 @@ func TestOrdersGetOrdersByPathCall_Do(t *testing.T) {
 					DestinationLinkName:      "AutoRoute",
 					Price:                    2,
 					OrderLegCollections: []*OrderLegCollection{
-						&OrderLegCollection{
+						{
 							OrderLegType: "EQUITY",
 							LegID:        1,
 							Instrument: &Instrument{
@@ -438,7 +438,7 @@ func TestOrdersGetOrdersByPathCall_Do(t *testing.T) {
 					AccountID:         123456789,
 					StatusDescription: "Your limit price is too distant from the current quote. Try again.",
 				},
-				&Order{
+				{
 					Session:                  "NORMAL",
 					Duration:                 "GOOD_TILL_CANCEL",
 					OrderType:                "LIMIT",
@@ -451,7 +451,7 @@ func TestOrdersGetOrdersByPathCall_Do(t *testing.T) {
 					DestinationLinkName:      "AutoRoute",
 					Price:                    20,
 					OrderLegCollections: []*OrderLegCollection{
-						&OrderLegCollection{
+						{
 							OrderLegType: "EQUITY",
 							LegID:        1,
 							Instrument: &Instrument{
@@ -545,7 +545,7 @@ func TestOrdersGetOrderCall_Do(t *testing.T) {
 			DestinationLinkName:      "AutoRoute",
 			Price:                    2,
 			OrderLegCollections: []*OrderLegCollection{
-				&OrderLegCollection{
+				{
 					OrderLegType: "EQUITY",
 					LegID:        1,
 					Instrument: &Instrument{

@@ -26,7 +26,7 @@ func Test_SavedOrder(t *testing.T) {
 			CancelTime: time.Now().AddDate(0, 4, 0).UTC().Format("2006-01-02"),
 			Price:      1.1,
 			OrderLegCollections: []*OrderLegCollection{
-				&OrderLegCollection{
+				{
 					Instrument: &Instrument{
 						Symbol:    "BWX",
 						AssetType: OrderAssetTypeEQUITY,
@@ -194,7 +194,7 @@ func TestSavedOrdersGetSavedOrdersByPathCall_Do(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{"Normal", NewSavedOrdersService(tdTest).GetSavedOrdersByPath("accountId"), []*SavedOrder{
-			&SavedOrder{
+			{
 				Order: &Order{
 					Session:                  "NORMAL",
 					Duration:                 "GOOD_TILL_CANCEL",
@@ -203,7 +203,7 @@ func TestSavedOrdersGetSavedOrdersByPathCall_Do(t *testing.T) {
 					ComplexOrderStrategyType: "NONE",
 					Price:                    1,
 					OrderLegCollections: []*OrderLegCollection{
-						&OrderLegCollection{
+						{
 							OrderLegType: "EQUITY",
 							LegID:        1,
 							Instrument: &Instrument{
@@ -221,7 +221,7 @@ func TestSavedOrdersGetSavedOrdersByPathCall_Do(t *testing.T) {
 				SavedOrderID: 12345678,
 				SavedTime:    "2018-11-03T09:25:19+0000",
 			},
-			&SavedOrder{
+			{
 				Order: &Order{
 					Session:                  "NORMAL",
 					Duration:                 "GOOD_TILL_CANCEL",
@@ -230,7 +230,7 @@ func TestSavedOrdersGetSavedOrdersByPathCall_Do(t *testing.T) {
 					ComplexOrderStrategyType: "NONE",
 					Price:                    1,
 					OrderLegCollections: []*OrderLegCollection{
-						&OrderLegCollection{
+						{
 							OrderLegType: "EQUITY",
 							LegID:        1,
 							Instrument: &Instrument{
@@ -314,7 +314,7 @@ func TestSavedOrdersGetSavedOrderCall_Do(t *testing.T) {
 				ComplexOrderStrategyType: "NONE",
 				Price:                    1,
 				OrderLegCollections: []*OrderLegCollection{
-					&OrderLegCollection{
+					{
 						OrderLegType: "EQUITY",
 						LegID:        1,
 						Instrument: &Instrument{

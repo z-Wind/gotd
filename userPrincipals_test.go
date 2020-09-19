@@ -119,7 +119,7 @@ func TestUserPrincipalsGetStreamerSubscriptionKeysCall_Do(t *testing.T) {
 		{"Test", NewUserPrincipalsService(tdTest).GetStreamerSubscriptionKeys("accountID1", "accountID2"), &SubscriptionKey{
 			ServerResponse: ServerResponse{200, http.Header{}},
 			Keys: []*Key{
-				&Key{
+				{
 					"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567891011",
 				},
 			},
@@ -217,13 +217,13 @@ func TestUserPrincipalsGetUserPrincipalsCall_Do(t *testing.T) {
 			},
 			StreamerSubscriptionKeys: &SubscriptionKey{
 				Keys: []*Key{
-					&Key{
+					{
 						"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567891011",
 					},
 				},
 			},
 			Accounts: []*AccountU{
-				&AccountU{
+				{
 					AccountID:         "123456789",
 					DisplayName:       "ABCDEFGHIJ",
 					AccountCdDomainID: "A123456789703390",
