@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/pkg/errors"
@@ -102,17 +103,7 @@ func (a *Auth) GetClient(clientsecretPath, tokenFile string) *http.Client {
 		log.Fatalf("Unable to get path to cached credential file. %v", err)
 	}
 	token, err := a.tokenFromFile(cacheFile)
-	refresh_token_expired := false
-	if err == nil {
-		// token.Expiry is the expiry of Access Token
-		// oauth2 does not change the token.Expiry even it refresh Access Toke
-		// so we can use it to estimate the expiry of Refresh Token
-		// A Refresh Token is valid for 90 days
-		Day := time.Hour * 24
-		valid_duration := Day * 90
-		refresh_token_expired = token.Expiry.Round(0).Add(valid_duration - Day).Before(time.Now())
-	}
-	if err != nil || refresh_token_expired {
+	if err != nil {
 		if launchWebServer {
 			fmt.Println("Trying to get token from web")
 			token, err = a.getTokenFromWeb()
@@ -120,11 +111,34 @@ func (a *Auth) GetClient(clientsecretPath, tokenFile string) *http.Client {
 			fmt.Println("Trying to get token from prompt")
 			token, err = a.getTokenFromPrompt()
 		}
-		if err == nil {
-			a.saveToken(cacheFile, token)
+		if err != nil {
+			log.Fatalf("Unable get token. %v", err)
 		}
+		a.saveToken(cacheFile, token)
 	}
-	return a.config.Client(ctx, token)
+
+	// token.Expiry is the expiry of Access Token
+	// oauth2 does not change the token.Expiry even it refresh Access Token
+	// so we can use it to estimate the expiry of Refresh Token
+	// A Refresh Token is valid for 90 days
+	// Update Refresh Token ten days before the expiry date
+	Day := time.Hour * 24
+	valid_duration := Day * 90
+	refresh_token_expired := token.Expiry.Round(0).Add(valid_duration - Day*10).Before(time.Now())
+
+	if refresh_token_expired {
+		call := postAccessToken(ctx, http.DefaultClient, TokenGrantTypeRefreshToken, a.config.ClientID)
+		call = call.RefreshToken(token.RefreshToken)
+		call = call.AccessType(TokenAccessTypeOffline)
+		token, err = call.Do()
+		if err != nil {
+			log.Fatalf("Unable update refresh_token. %v", err)
+		}
+		a.saveToken(cacheFile, token)
+	}
+
+	client := a.config.Client(ctx, token)
+	return client
 }
 
 func (a *Auth) configFromJSON(jsonKey []byte, scope ...string) error {
@@ -294,4 +308,106 @@ func (a *Auth) saveToken(file string, token *oauth2.Token) {
 	}
 	defer f.Close()
 	json.NewEncoder(f).Encode(token)
+}
+
+// postAccessToken https://developer.tdameritrade.com/authentication/apis/post/token-0
+// The token endpoint returns an access token along with an optional refresh token
+func postAccessToken(ctx context.Context, client *http.Client, grant_type, client_id string) *postAccessTokenCall {
+	c := &postAccessTokenCall{
+		ctx:    ctx,
+		client: client,
+		body: url.Values{
+			"grant_type": []string{grant_type},
+			"client_id":  []string{client_id},
+		},
+	}
+
+	return c
+}
+
+// postAccessTokenCall https://developer.tdameritrade.com/authentication/apis/post/token-0
+// The token endpoint returns an access token along with an optional refresh token
+type postAccessTokenCall struct {
+	ctx context.Context
+	// 不能用 oauth2 產生的，因會放在 Header 導致忽略 body 中的參數
+	// 建議使用 http.DefaultClient
+	client *http.Client
+
+	body url.Values
+}
+
+// RefreshToken https://developer.tdameritrade.com/authentication/apis/post/token-0
+// Required if using refresh token grant
+func (c *postAccessTokenCall) RefreshToken(refreshToken string) *postAccessTokenCall {
+	c.body.Set("refresh_token", refreshToken)
+	return c
+}
+
+// AccessType https://developer.tdameritrade.com/authentication/apis/post/token-0
+// Set to offline to receive a refresh token on an authorization_code grant type request. Do not set to offline on a refresh_token grant type request.
+func (c *postAccessTokenCall) AccessType(accessType string) *postAccessTokenCall {
+	c.body.Set("access_type", accessType)
+	return c
+}
+
+// Code https://developer.tdameritrade.com/authentication/apis/post/token-0
+// Required if trying to use authorization code grant
+func (c *postAccessTokenCall) Code(code string) *postAccessTokenCall {
+	c.body.Set("code", code)
+	return c
+}
+
+// RedirectURI https://developer.tdameritrade.com/authentication/apis/post/token-0
+// Required if trying to use authorization code grant
+func (c *postAccessTokenCall) RedirectURI(redirectURI string) *postAccessTokenCall {
+	c.body.Set("redirect_uri", redirectURI)
+	return c
+}
+
+func (c *postAccessTokenCall) doRequest() (*http.Response, error) {
+	reqHeaders := make(http.Header)
+	reqHeaders.Set("User-Agent", UserAgent)
+	reqHeaders.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	body := strings.NewReader(c.body.Encode())
+	urls := ResolveRelative(basePath, "oauth2", "token")
+
+	req, err := http.NewRequest("POST", urls, body)
+	if err != nil {
+		return nil, errors.Wrapf(err, "http.NewRequest")
+	}
+	req.Header = reqHeaders
+
+	return SendRequest(c.ctx, c.client, req)
+}
+
+// Do send request
+func (c *postAccessTokenCall) Do() (*oauth2.Token, error) {
+	res, err := c.doRequest()
+
+	if res != nil && res.StatusCode == http.StatusNotModified {
+		if res.Body != nil {
+			res.Body.Close()
+		}
+		return nil, &Error{
+			Code:   res.StatusCode,
+			Header: res.Header,
+		}
+	}
+	if err != nil {
+		return nil, errors.Wrapf(err, "doRequest")
+	}
+	defer res.Body.Close()
+	if err := CheckResponse(res); err != nil {
+		return nil, errors.Wrapf(err, "CheckResponse")
+	}
+
+	token := &oauth2.Token{}
+	err = json.NewDecoder(res.Body).Decode(token)
+	token.Expiry = time.Now().Add(time.Second * 1800)
+	if err != nil {
+		return nil, errors.Wrapf(err, "json.NewDecoder")
+	}
+
+	return token, nil
 }

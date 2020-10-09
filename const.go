@@ -118,4 +118,9 @@ const (
 	PreferencesTimeoutTWOHOURS         = "TWO_HOURS"
 	PreferencesTimeoutFOURHOURS        = "FOUR_HOURS"
 	PreferencesTimeoutEIGHTHOURS       = "EIGHT_HOURS"
+
+	TokenGrantTypeAuthorizationCode = "authorization_code"
+	TokenGrantTypeRefreshToken      = "refresh_token"
+	TokenAccessTypeOffline          = "offline"
+	TokenAccessTypeOnline           = "online"
 )
